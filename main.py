@@ -12,8 +12,8 @@ def get_text():
 #main variables
 text_to_write = list(get_text())
 root = Tk()
-root.eval('tk::PlaceWindow . center')
-text_box = Entry(root)
+root.title('Typing Test by magicthanos')
+text_box = Entry(root, font=('JetBrains Mono', 15), width=50)
 
 word_count = text_to_write.count(' ') + 1  #the count of words
 space_count = 0  #the count of spaces
@@ -49,8 +49,8 @@ def read_char(entry, end_timer=0):
         wpm_label = Label(
             root,
             text=
-            f'Gross WPM: {gross} \nNet WPM: {net} \nTime: {end_timer-start_timer} \nAccuracy: {acc}%'
-        )
+            f'Gross WPM: {gross} \nNet WPM: {net} \nTime: {end_timer-start_timer} \nAccuracy: {acc}%',
+            font=('JetBrains Mono', 10))
         wpm_label.grid(row=1, column=0)
         return
 
@@ -83,7 +83,7 @@ text_box.bind('<KeyPress>', lambda e: read_char(e.char))
 
 text_display = Label(root,
                      text=''.join(text_to_write),
-                     font=('JetBrains Mono', 10))
+                     font=('JetBrains Mono', 20))
 text_display.grid(row=0, column=0)
 
 mainloop()
