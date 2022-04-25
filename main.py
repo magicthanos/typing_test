@@ -1,9 +1,16 @@
 from tkinter import *
 import time
 
+
+def get_text():
+    with open('sentences.txt', 'r') as f:
+        import random
+        input_text = f.readlines()
+        return input_text[random.randint(0, len(input_text) - 1)]
+
+
 #main variables
-text_to_write = list('hello my name is quandale dingle')
-print(text_to_write)
+text_to_write = list(get_text())
 root = Tk()
 root.eval('tk::PlaceWindow . center')
 text_box = Entry(root)
@@ -59,8 +66,7 @@ def read_char(entry, end_timer=0):
     if entry in ['', '\r']:  #used to ignore shift key and enter key
         return
 
-    input_text.append(entry)
-    print(input_text)
+    input_text.append(entry)  #add the input to the list
 
 
 def calculate_wpm(start_time, end_time, input_text, text_to_write):
