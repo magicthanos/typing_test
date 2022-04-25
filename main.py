@@ -1,11 +1,11 @@
 from tkinter import *
 import time
-from tkinter import font
 
 #main variables
 text_to_write = list('hello my name is quandale dingle')
 print(text_to_write)
 root = Tk()
+root.eval('tk::PlaceWindow . center')
 text_box = Entry(root)
 
 word_count = text_to_write.count(' ') + 1  #the count of words
@@ -37,12 +37,12 @@ def read_char(entry, end_timer=0):
         text_box.unbind('<KeyPress>')
         end_timer = t.time()
 
-        (gross, net) = calculate_wpm(start_timer, end_timer, input_text,
-                                     text_to_write)
+        (gross, net, acc) = calculate_wpm(start_timer, end_timer, input_text,
+                                          text_to_write)
         wpm_label = Label(
             root,
             text=
-            f'Gross WPM: {gross} \nNet WPM: {net} \nTime: {end_timer-start_timer}'
+            f'Gross WPM: {gross} \nNet WPM: {net} \nTime: {end_timer-start_timer} \nAccuracy: {acc}%'
         )
         wpm_label.grid(row=1, column=0)
         return
@@ -66,9 +66,10 @@ def read_char(entry, end_timer=0):
 def calculate_wpm(start_time, end_time, input_text, text_to_write):
     time = (end_time - start_time) / 60
     gross_wpm = (len(input_text) / 5) / time
-    net_wpm = gross_wpm - (
-        len([c for c in text_to_write if c not in input_text]) / 5) / time
-    return (gross_wpm, net_wpm)
+    errors = [c for c in text_to_write if c not in input_text]
+    net_wpm = gross_wpm - (len(errors) / 5) / time
+    accuracy = (len(input_text) - len(errors)) / len(input_text) * 100
+    return (gross_wpm, net_wpm, accuracy)
 
 
 text_box.grid(row=2, column=0)
