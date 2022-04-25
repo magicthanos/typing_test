@@ -3,7 +3,7 @@ import time
 from tkinter import font
 
 #main variables
-text_to_write = list('Hello guys!')
+text_to_write = list('hello my name is quandale dingle')
 print(text_to_write)
 root = Tk()
 text_box = Entry(root)
@@ -56,7 +56,7 @@ def read_char(entry, end_timer=0):
             pass
         return  #return so "\x08" is not added to the list
 
-    if entry == '':  #used to ignore shift key
+    if entry in ['', '\r']:  #used to ignore shift key and enter key
         return
 
     input_text.append(entry)
